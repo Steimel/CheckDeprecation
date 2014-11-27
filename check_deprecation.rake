@@ -1,20 +1,22 @@
 namespace :check_deprecation do
-  desc 'Checks all files in log/ for deprecation warnings'
-  task :all, [] => [:environment] do |t, args|
+  desc 'Checks all files in log/ for deprecation warnings after optional date'
+  task :all, [:date] => [:environment] do |t, args|
     Dir.entries('log').each do |logfile|
-      print_deprecations('log/' + logfile) unless ['.', '..'].include?(logfile.to_s)
+      print_deprecations('log/' + logfile, args[:date]) unless ['.', '..'].include?(logfile.to_s)
     end
   end
 
-  desc 'Checks given file in log/ for deprecation warnings'
-  task :for, [:file] => [:environment] do |t, args|
-    print_deprecations('log/' + args[:file])
+  desc 'Checks given file in log/ for deprecation warnings after optional date'
+  task :for, [:file, :date] => [:environment] do |t, args|
+    print_deprecations('log/' + args[:file], args[:date])
   end
 
-  def print_deprecations(file_path)
+  def print_deprecations(file_path, date)
     puts '--------------------------------------------------------'
     puts 'Checking ' + file_path.to_s + ' for deprecation warnings'
     puts '--------------------------------------------------------'
+
+    #TODO: Handle date
 
     File.open(file_path, 'r') do |f|
       f.each_line do |line|
