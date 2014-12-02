@@ -22,3 +22,13 @@ To view deprecation warnings from a particular file in log/, use check_deprecati
 ```
 rake check_deprecation:for[development.log]
 ```
+
+To only display deprecation warnings after a particular date (NOT YET IMPLEMENTED), use
+
+```
+rake check_deprecation:all[2014-12-15]
+```
+or
+```
+rake check_deprecation:for[development.log,2014-12-15]
+```
